@@ -1,30 +1,38 @@
 let blocks = document.querySelectorAll(".block")
-blocks = [...blocks]
+blocks = [...blocks];
 
-//zapala sie losowy div
-const blockFlickerInator = function(){
-	setInterval(function(){
+// losowy div zapala sie na moment
+let flickerInator = function(){
 		const position = Math.floor(Math.random() * blocks.length);
+
 		blocks[position].classList.add("alpha");
+		blocks[position].classList.remove("disabled");
+
 		setTimeout(function(){
-			blocks[position].classList.remove("alpha");
+			if (!blocks[position].classList.contains("won")) {
+				blocks[position].classList.remove("alpha");
+				blocks[position].classList.add("disabled");
+			}
 		}, 1000)
-	}, 1000)
-
-
 }
-// klikniecie dodaje klase .alpha
+
+setInterval(flickerInator, 1000)
+let activeBlock = "";
+
+//clikniety block zostaje odkryty na zawsze
 const clickBlock = function(){
 	activeBlock = this;
-	activeBlock.classList.add("alpha");
-}
-
-// while true zmieniaj loswego diva co sekunde
-const init = function(){
-	for(let block in blocks){
-		const position = Math.floor(Math.random() * blocks.length);
-		blocks[position].classList.add("alpha");
+	if (!activeBlock.classList.contains("disabled")){
+		activeBlock.classList.add("won")
+		activeBlock.classList.add("alpha")
 	}
 }
- 
-blockFlickerInator();
+//inicjator
+const init = function(){
+	blocks.forEach(block => {
+		block.classList.add("disabled")
+		block.addEventListener("click", clickBlock)
+	})
+}
+init();
+flickerInator();

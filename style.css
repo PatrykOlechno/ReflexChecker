@@ -5,7 +5,7 @@
 }
 body{
 	display: flex;
-	background: tomato;
+	background: url(crescent-4875339_1920.jpg);
 	flex-wrap: wrap;
 }
 .block{
@@ -22,5 +22,5 @@ body{
 	}
 }
 .alpha{
-	opacity: 0
+	opacity: 0.3
 }
